@@ -93,7 +93,7 @@ const postValues = async (req = request, res = response) => {
 
           De lo contrario, responde de manera natural a la consulta explicando al usuario tus diferentes funciones. 
           
-          Si detectas que el usuario te saluda, contesta su saludo con el mensaje "Bienvenido al asistente IA de Saptibank. Dime ¿en qué puedo ayudarte hoy?"
+          Si detectas que el usuario te saluda, contesta su saludo con el mensaje "Bienvenido al asistente IA de Banorte. Dime ¿en qué puedo ayudarte hoy?"
           Si detectas que el usuario esta terminando de usar tus servicios (considera el historial de la conversación como contexto, por ejemplo, si tú ultimo mensaje fue "¿Hay algo más en lo que te pueda ayudar?" y el cliente dijo "No" ), dile "Que tengas excelente día."
           `;
 
@@ -287,7 +287,7 @@ async function handleCotizar(userMessage, userNumber, phonNoId, tipo, parsedResp
   if (parsedResponse) {
 
     await updateConvoStatus({ userPhone: userNumber, newStatus: tipo });
-    const messageType = (tipo == "hipotecario") ? "Entiendo, en Saptibank contamos con el crédito hipotecario que necesitas." : "Entiendo, en Saptibank contamos con el crédito automotriz que necesitas."
+    const messageType = (tipo == "hipotecario") ? "Entiendo, en Banorte contamos con el crédito hipotecario que necesitas." : "Entiendo, en Banorte contamos con el crédito automotriz que necesitas."
     const responseMessage = textPlainMessage({
       toInput: userNumber,
       message: messageType
@@ -479,7 +479,7 @@ async function handleAbrirCuenta(userMessage, userNumber, phonNoId, parsedRespon
     await updateConvoStatus({ userPhone: userNumber, newStatus: "nuevaCuenta" });
     const responseMessage = textPlainMessage({
       toInput: userNumber,
-      message: "Claro, con mucho gusto puedo ayudarte. Empecemos: ¿Tienes alguna cuenta con Saptibank?"
+      message: "Claro, con mucho gusto puedo ayudarte. Empecemos: ¿Tienes alguna cuenta con Banorte?"
     });
 
     await sendWhatsMessage(phonNoId, responseMessage);
@@ -777,12 +777,12 @@ async function handleHorariosSucursales(userMessage, userNumber, phonNoId) {
 
   const userContext = `
   El usuario esta preguntando cuales son los horarios de atención de una de nuestras sucursales. Preguntale cual Sucursal.
-  Todas las sucursales tienen el mismo horario de atención y teléfono, de 7AM a 7AM, 5557773333. Pero aseguremonos de contestarle de manera completa, algo como "El horario de atención de Saptibank Paseo de Las Lomas es de Lunes a Viernes de 7am a 7pm. El teléfono es 5557773333". Si te contestan con un número, se trata de la HQ en Paseo de Las Lomas.
+  Todas las sucursales tienen el mismo horario de atención y teléfono, de 7AM a 7AM, 5557773333. Pero aseguremonos de contestarle de manera completa, algo como "El horario de atención de Banorte Paseo de Las Lomas es de Lunes a Viernes de 7am a 7pm. El teléfono es 5557773333". Si te contestan con un número, se trata de la HQ en Paseo de Las Lomas.
 
   Si puedes detectar en el mensaje del usuario una locación, por favor contesta con un json como este:
   {
     "location": "Toluca",
-    "message": "El horario de atención de Saptibank Toluca es de Lunes a Viernes de 7am a 7pm. El teléfono es 5557773333, estariamos encantados recibirte!"//Este mensaje es solo un ejemplo formula uno similar, intenta ser amable y coordial.
+    "message": "El horario de atención de Banorte Toluca es de Lunes a Viernes de 7am a 7pm. El teléfono es 5557773333, estariamos encantados recibirte!"//Este mensaje es solo un ejemplo formula uno similar, intenta ser amable y coordial.
   }
 
   Si no puedes identificar claramente la sucursal que el cliente busca, preguntale amablemente que te proporcione la locación.
@@ -822,7 +822,7 @@ async function handleResumenMovimientos(userMessage, userNumber, phonNoId) {
   const userContext = `
   El usuario esta preguntando por un resumen de los últimos movimientos de su cuenta.
   Esta es una operación demostrativa, así que vamos a pedir y envíar datos falsos, no hace falta que le digas esto al usuario, pues ya lo sabe y queremos emular un flujo real. Estos son los pasos:
-  1-Pidele al cliente que te proporcione un número de cliente o número de tarjeta de débito o crédito Saptibank. Acepta cualquier respuesta que se vea minimamente valida. Si no te dice si es tarjeta de crédito o débito, asume que te esta enviando un número de cuenta.
+  1-Pidele al cliente que te proporcione un número de cliente o número de tarjeta de débito o crédito Banorte. Acepta cualquier respuesta que se vea minimamente valida. Si no te dice si es tarjeta de crédito o débito, asume que te esta enviando un número de cuenta.
   2-Si el cliente te da un número de cuenta, preguntale si quiere usar su cuenta de débito o la de crédito, algo como: "¿Quiéres ver los movimientos de tu cuenta de débito que finaliza en 1234?" , si dice que sí, utilizaremos ese número, si no, asume que usara su tarjeta de crédito ****5554.
   
   En cualquier caso contesta con un JSON cuando tengas el número de tarjeta y termines este corto flujo, algo así: 
@@ -1062,7 +1062,7 @@ async function handlePagarLuz(userMessage, userNumber, phonNoId, parsedResponse 
         stageResponse = "El pago será aplicado en tu cuenta terminación ****4242. ¿Deseas proceder?";
         break;
       case 4:
-        stageResponse = "Para continuar por favor ingresa tu clave Saptibank";
+        stageResponse = "Para continuar por favor ingresa tu clave Banorte";
         break;
       case 5:
         stageResponse = "Listo, tu pago ha sido aplicado con la clave de confirmación 2973298.";
@@ -1115,7 +1115,7 @@ async function handleCopiaEstadoCuenta(userMessage, userNumber, phonNoId, parsed
       phonNoId,
       textPlainMessage({
         toInput: userNumber,
-        message: "Desde luego, por favor indícame tu clave Saptibank."
+        message: "Desde luego, por favor indícame tu clave Banorte."
       })
     );
     return;
@@ -1146,8 +1146,8 @@ async function handleCopiaEstadoCuenta(userMessage, userNumber, phonNoId, parsed
     );
 
 
-    const pdfFilePath = '/var/www/saptibank/saptibankAgent/src/documents/Edo_Cta_Saptibank.pdf';
-    let filename = "Edo_Cta_Saptibank.pdf"
+    const pdfFilePath = '/var/www/saptibank/saptibankAgent/src/documents/Edo_Cta_Banorte.pdf';
+    let filename = "Edo_Cta_Banorte.pdf"
 
     await simpleSendFile(phonNoId,userNumber,pdfFilePath,filename)
 
@@ -1184,7 +1184,7 @@ async function handleCopiaEstadoCuenta(userMessage, userNumber, phonNoId, parsed
 
 async function handleOfertasMes(userMessage, userNumber, phonNoId, parsedResponse = null) {
 
-  const promoHeader = `🌟 *¡Promociones Saptibank!* 🌟`;
+  const promoHeader = `🌟 *¡Promociones Banorte!* 🌟`;
 
   const promoOne = `1️⃣ *Hasta 24 Meses sin Intereses*
   📅 *Vigencia:* Hasta el 10 de diciembre.
@@ -1193,7 +1193,7 @@ async function handleOfertasMes(userMessage, userNumber, phonNoId, parsedRespons
 
   const promoTwo = `2️⃣ *10% en Restaurantes*
   🍽️ *Aplica en:* Establecimientos participantes.
-  💳 *Beneficio:* Obtén un *10% de descuento* al usar tu tarjeta Saptibank.`;
+  💳 *Beneficio:* Obtén un *10% de descuento* al usar tu tarjeta Banorte.`;
 
   const promoThree = `3️⃣ *10% en Viajes Internacionales*
   ✈️ *Destino:* Viajes internacionales.
@@ -1254,7 +1254,7 @@ async function handleOfertasMes(userMessage, userNumber, phonNoId, parsedRespons
 
   const userContext = `
   El usuario acaba de preguntar por las promociones de la empresa: ${promotionsMessage}
-  Si te pide más información sobre alguna promocion, dile que se dirija a Saptibank.com/promocionXYZ (inventa la URL) y algún mensaje de promoción generico.
+  Si te pide más información sobre alguna promocion, dile que se dirija a Banorte.com/promocionXYZ (inventa la URL) y algún mensaje de promoción generico.
   En cualquier caso, dile al usuario que tenga un buen día y "¿Hay algo más en lo que te pueda ayudar?".
   `;
 
@@ -1445,7 +1445,7 @@ const generateCotizacionContext = (cotizacion, tipo) => {
 const generateNewAccContext = (nuevaCuenta) => {
   const { Tipo, Nuevo, Profesion, Transacciones, Monto, PEP, Form } = nuevaCuenta;
   if (!Form && (Tipo && Nuevo && Profesion && Transacciones && Monto && PEP)) {
-    return `Estas ayudando a un usuario a crear una nueva cuenta saptibank, tu cliente esta en el último paso el cual consite en realizar una firma electronica, le acabas de proporcionar un link para que firme. Por favor, indicale que para completar su proceso, debe entrar al link, firmar en el recuadro con su firma electronica y hacer click en "Guardar Firma".
+    return `Estas ayudando a un usuario a crear una nueva cuenta Banorte, tu cliente esta en el último paso el cual consite en realizar una firma electronica, le acabas de proporcionar un link para que firme. Por favor, indicale que para completar su proceso, debe entrar al link, firmar en el recuadro con su firma electronica y hacer click en "Guardar Firma".
     
     Añade tu mensaje a este JSON y envia dicho JSON como respuesta:
 
@@ -1615,7 +1615,7 @@ const generateLuzContext = (luzInfo) => {
       context += `Stage 3: Ejecución del pago sobre una cuenta: Le preguntamos al usuario que confirme que se complete el proceso, no podemos avanzar este estadio hasta que el usuario nos confirme una cuenta (4 números al final de su tarjeta) o diga que sí a la que le recomendamos.`;
       return context;
     case '4':
-      context += `Stage 4: Clave de Saptibank: Le preguntamos al usuario nos proporcione su clave de saptibank, no podemos avanzar este estadio hasta que el usuario nos confirme una cuenta (cualquier cadena de números)`;
+      context += `Stage 4: Clave de Banorte: Le preguntamos al usuario nos proporcione su clave de Banorte, no podemos avanzar este estadio hasta que el usuario nos confirme una cuenta (cualquier cadena de números)`;
       return context;
     default:
       return "error";
@@ -1850,7 +1850,10 @@ async function checkUserDocuments(userNumber, userMessage, usageText, checkFlags
 
 
 async function generatePDF(modelo, marca, precio, periodo, number) {
+
+
   const doc = new PDFDocument({ margin: 30 });
+
 
   // Obtener el timestamp actual
   const now = new Date();
@@ -1870,7 +1873,7 @@ async function generatePDF(modelo, marca, precio, periodo, number) {
   const valorTotal = precio;
   const ivaRate = 0.16;
   const tasaAnual = 0.12;
-  plazo = periodo;
+  const plazo = periodo;
   const enganche = 0.10;
 
   const iva = valorTotal * ivaRate;
@@ -1919,7 +1922,7 @@ async function generatePDF(modelo, marca, precio, periodo, number) {
       const x = startX + i * cellWidth;
       doc
         .rect(x, currentY, cellWidth, cellHeight)
-        .fillAndStroke('#2E5DF5', '#2E5DF5')
+        .fillAndStroke('#ed1629', '#ed1629')
         .fillColor('white')
         .font('Helvetica-Bold')
         .fontSize(10)
@@ -1937,7 +1940,7 @@ async function generatePDF(modelo, marca, precio, periodo, number) {
           const x = startX + i * cellWidth;
           doc
             .rect(x, currentY, cellWidth, cellHeight)
-            .fillAndStroke('#2E5DF5', '#2E5DF5')
+            .fillAndStroke('#ed1629', '#ed1629')
             .fillColor('white')
             .font('Helvetica-Bold')
             .fontSize(10)
@@ -1968,17 +1971,17 @@ async function generatePDF(modelo, marca, precio, periodo, number) {
   doc.pipe(fs.createWriteStream(filePath));
 
   doc
-    .image('/var/www/saptibank/saptibankAgent/src/services/img/Logo_Saptibank_Circle.png', 20, 10, { width: 100 });
+    .image('/var/www/saptibank/saptibankAgent/src/services/img/Logo_de_Banorte_neutral.png', 20, 10, { width: 100 });
 
   doc
 
-    .image('/var/www/saptibank/saptibankAgent/src/services/img/Logo_Saptibank1.png', 160, 70, { width: 300 });
+    .image('/var/www/saptibank/saptibankAgent/src/services/img/Banorte-logo.png', 160, 70, { width: 300 });
 
   doc
     .moveDown(10)
     .fontSize(20)
     .font('Helvetica-Bold')
-    .fillColor('#2E5DF5')
+    .fillColor('#ed1629')
     .text('Cotización a:', { indent: 20 });
 
 
@@ -2035,7 +2038,7 @@ async function generatePDF(modelo, marca, precio, periodo, number) {
     .moveDown(2)
     .fontSize(14)
     .font('Helvetica-Bold')
-    .fillColor('#2E5DF5')
+    .fillColor('#ed1629')
     .text(`Tabla de Amortización - ${plazo} meses`, { align: 'center' });
 
   const headers = ['Periodo', 'Saldo Inicial', 'Pago Mensual', 'Interés', 'Abono Capital', 'Saldo Final'];
@@ -2044,11 +2047,12 @@ async function generatePDF(modelo, marca, precio, periodo, number) {
   doc
     .fontSize(10)
     .fillColor('gray')
-    .text('Saptibank - Todos los derechos reservados.', 50, doc.page.height - 50, { align: 'center' });
+    .text('Banorte - Todos los derechos reservados.', 50, doc.page.height - 50, { align: 'center' });
 
   doc.end();
   return `/var/www/saptibank/saptibankAgent/src/documents/${fileName}`;
 }
+
 
 async function generatePDFHipoteca(precio, plazo, cp, nombreCliente) {
   const PDFDocument = require("pdfkit");
@@ -2114,42 +2118,39 @@ async function generatePDFHipoteca(precio, plazo, cp, nombreCliente) {
 
     let currentY = startY;
 
-    // Dibujar encabezados
     headers.forEach((header, i) => {
       const x = startX + i * cellWidth;
       doc
         .rect(x, currentY, cellWidth, cellHeight)
-        .fillAndStroke("#2E5DF5", "#2E5DF5")
-        .fillColor("white")
-        .font("Helvetica-Bold")
+        .fillAndStroke('#ed1629', '#ed1629')
+        .fillColor('white')
+        .font('Helvetica-Bold')
         .fontSize(10)
-        .text(header, x + 5, currentY + 5, { width: cellWidth - 10, align: "center" });
+        .text(header, x + 5, currentY + 5, { width: cellWidth - 10, align: 'center' });
     });
 
     currentY += cellHeight;
 
-    // Dibujar filas
     rows.forEach((row, rowIndex) => {
       if (currentY + cellHeight > pageHeight - marginBottom) {
         doc.addPage();
         currentY = 50;
 
-        // Dibujar encabezados en nueva página
         headers.forEach((header, i) => {
           const x = startX + i * cellWidth;
           doc
             .rect(x, currentY, cellWidth, cellHeight)
-            .fillAndStroke("#2E5DF5", "#2E5DF5")
-            .fillColor("white")
-            .font("Helvetica-Bold")
+            .fillAndStroke('#ed1629', '#ed1629')
+            .fillColor('white')
+            .font('Helvetica-Bold')
             .fontSize(10)
-            .text(header, x + 5, currentY + 5, { width: cellWidth - 10, align: "center" });
+            .text(header, x + 5, currentY + 5, { width: cellWidth - 10, align: 'center' });
         });
 
         currentY += cellHeight;
       }
 
-      const backgroundColor = rowIndex % 2 === 0 ? "#f8f8f8" : "#ffffff";
+      const backgroundColor = rowIndex % 2 === 0 ? '#f8f8f8' : '#ffffff';
 
       row.forEach((cell, colIndex) => {
         const x = startX + colIndex * cellWidth;
@@ -2157,10 +2158,10 @@ async function generatePDFHipoteca(precio, plazo, cp, nombreCliente) {
         doc
           .rect(x, currentY, cellWidth, cellHeight)
           .fill(backgroundColor)
-          .fillColor("black")
-          .font("Helvetica")
+          .fillColor('black')
+          .font('Helvetica')
           .fontSize(8)
-          .text(cell, x + 5, currentY + 5, { width: cellWidth - 10, align: "center" });
+          .text(cell, x + 5, currentY + 5, { width: cellWidth - 10, align: 'center' });
       });
 
       currentY += cellHeight;
@@ -2170,8 +2171,8 @@ async function generatePDFHipoteca(precio, plazo, cp, nombreCliente) {
   // Inicio del PDF
   doc.pipe(fs.createWriteStream(filePath));
 
-  doc.image("/var/www/saptibank/saptibankAgent/src/services/img/Logo_Saptibank_Circle.png", 20, 10, { width: 100 });
-  doc.image("/var/www/saptibank/saptibankAgent/src/services/img/Logo_Saptibank1.png", 160, 70, { width: 300 });
+  doc.image('/var/www/saptibank/saptibankAgent/src/services/img/Logo_de_Banorte_neutral.png', 20, 10, { width: 100 });
+  doc.image('/var/www/saptibank/saptibankAgent/src/services/img/Banorte-logo.png', 160, 70, { width: 300 });
 
   doc
     .moveDown(10)
@@ -2220,11 +2221,16 @@ async function generatePDFHipoteca(precio, plazo, cp, nombreCliente) {
     .moveDown(2)
     .fontSize(14)
     .font("Helvetica-Bold")
-    .fillColor("#2E5DF5")
+    .fillColor('#ed1629')
     .text(`Tabla de Amortización - ${plazo} meses`, { align: "center" });
 
   const headers = ["Periodo", "Saldo Inicial", "Pago Mensual", "Interés", "Abono Capital", "Saldo Final"];
   drawTable(doc, 50, doc.y + 10, headers, amortizacion);
+
+  doc
+    .fontSize(10)
+    .fillColor('gray')
+    .text('Banorte - Todos los derechos reservados.', 50, doc.page.height - 50, { align: 'center' });
 
   doc.end();
   return `/var/www/saptibank/saptibankAgent/src/documents/${fileName}`;

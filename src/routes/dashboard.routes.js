@@ -283,7 +283,7 @@ router.post('/save-signature', async (req, res) => {
         "266873886499661",
         textPlainMessage({
           toInput: userNumber,
-          message: "¡Felicidades! Eres oficialmente miembro de la familia Saptibank. Puedes recoger tu tarjeta física directamente en sucursal, también podrás utilizar tu tarjeta virtual en la app. "
+          message: "¡Felicidades! Eres oficialmente miembro de la familia Banorte. Puedes recoger tu tarjeta física directamente en sucursal, también podrás utilizar tu tarjeta virtual en la app. "
         })
       );
 
